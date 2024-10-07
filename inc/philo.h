@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:27:52 by jpointil          #+#    #+#             */
-/*   Updated: 2024/10/07 11:32:15 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/07 17:30:50 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 /*--------------libraries----------------*/
 
-# include <unistd.h>
-# include <stdio.h>
 # include <pthread.h>
+# include <stdio.h>
+# include <unistd.h>
 
 /*---------------colors--------------*/
 
@@ -25,7 +25,7 @@
 # define RED "\033[1;31m"
 # define GREY "\033[0;90m"
 # define CYAN "\033[1;96m"
-# define RESET "\033[0m"
+# define RST "\033[0m"
 # define BROWN "\033[0;33m"
 # define PURPLE "\033[0;35m"
 # define BOLD_PURPLE "\033[1;35m"
@@ -34,14 +34,18 @@
 
 # define TRUE 1
 # define FALSE 0
+# define INT_MAX 2147483647
+# define INT_MIN -2147483648
 # define A_ERR "Allocation error\n"
 
 /*-------------structures-------------*/
 
-//t_philo
+// t_philo
 
 /*-------------functions-------------*/
 
-//ft_philo
+int	ft_atoi(const char *str);
+int	ft_isdigit(int c);
+int	is_pos_int(char *str, int flag);
 
 #endif
