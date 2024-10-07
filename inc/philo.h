@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:27:52 by jpointil          #+#    #+#             */
-/*   Updated: 2024/10/07 09:59:05 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/07 11:32:15 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define GREY "\033[0;90m"
 # define CYAN "\033[1;96m"
 # define RESET "\033[0m"
-# define YELLOW "\033[0;33m"
+# define BROWN "\033[0;33m"
 # define PURPLE "\033[0;35m"
 # define BOLD_PURPLE "\033[1;35m"
 
