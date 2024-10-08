@@ -6,7 +6,7 @@ LIBS        =   /inc
 
 FLAG        =   -g3 -Wall -Wextra -Werror -pthread
 
-C_FILES     =   srcs/philo.c srcs/utils.c
+C_FILES     =   srcs/philo.c srcs/utils.c srcs/inits.c
 
 OBJ_DIR     =   builds
 

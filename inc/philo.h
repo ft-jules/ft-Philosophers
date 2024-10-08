@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:27:52 by jpointil          #+#    #+#             */
-/*   Updated: 2024/10/07 17:30:50 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/08 11:35:29 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 /*--------------libraries----------------*/
 
 # include <pthread.h>
+# include <stdbool.h>
 # include <stdio.h>
+# include <stdlib.h>
 # include <unistd.h>
 
 /*---------------colors--------------*/
@@ -40,12 +42,43 @@
 
 /*-------------structures-------------*/
 
-// t_philo
+typedef struct s_philo
+{
+	pthread_t		*thread;
+
+	int				id;
+	bool			dead;
+
+	size_t			ttdie;
+	size_t			tteat;
+	size_t			ttsleep;
+
+	pthread_mutex_t	r_fork;
+	pthread_mutex_t	l_fork;
+
+}					t_philo;
+
+typedef struct s_data
+{
+	t_philo			*philo;
+
+	bool			death;
+
+	size_t			philo_nb;
+	size_t			ttdie;
+	size_t			tteat;
+	size_t			ttsleep;
+	size_t			meals;
+	pthread_mutex_t	dead_lock;
+	pthread_mutex_t	meal_lock;
+	pthread_mutex_t	write_lock;
+
+}					t_data;
 
 /*-------------functions-------------*/
 
-int	ft_atoi(const char *str);
-int	ft_isdigit(int c);
-int	is_pos_int(char *str, int flag);
+int					ft_atoi(const char *str);
+int					is_pos_int(char *str, int flag);
+bool				init_args(t_data *data, int ac, char **av);
 
 #endif

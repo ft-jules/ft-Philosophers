@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:01:51 by jules             #+#    #+#             */
-/*   Updated: 2024/10/07 17:33:43 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/08 09:50:38 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,16 @@ int	is_pos_int(char *str, int flag)
 	nb = 0;
 	while (str[i])
 	{
-		if (str[i] < '0' && str[i] > '9')
-			return (printf(RED "Only positive int required\n" RST), 1); // cas ou pas un digit
+		if (str[i] < '0' || str[i] > '9')
+			return (printf(RED "Only positive int required\n" RST), 1);
 		nb = nb * 10 + (str[i] - '0');
 		i++;
 	}
 	if (flag == 5 && nb == 0)
-        return (printf(RED "Philo are all stuffed to the gills\n" RST), 1); // si 0 repas a manger
-	if (nb <= 0 && nb > INT_MAX)
-		return (printf(RED "Only positive int required\n" RST), 1); // si c'est pas un int positif
+		return (printf(GREEN "Philo are all stuffed to the gills\n" RST), 1);
+	if (nb <= 0 || nb > INT_MAX)
+		return (printf(RED "Only positive int required\n" RST), 1);
 	return (0);
-}
-
-int	ft_isdigit(int c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	else
-		return (0);
 }
 
 int	ft_atoi(const char *str)
