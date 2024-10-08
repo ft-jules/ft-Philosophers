@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:01:51 by jules             #+#    #+#             */
-/*   Updated: 2024/10/08 09:50:38 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/08 13:57:43 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,13 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return (result * sign);
+}
+
+size_t	get_time(void)
+{
+	struct timeval	t;
+
+	if (gettimeofday(&t, NULL))
+		printf("Get time error");
+	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
 }

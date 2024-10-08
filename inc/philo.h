@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:27:52 by jpointil          #+#    #+#             */
-/*   Updated: 2024/10/08 11:35:29 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/08 15:41:03 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <sys/time.h>
 # include <unistd.h>
 
 /*---------------colors--------------*/
@@ -64,21 +65,29 @@ typedef struct s_data
 
 	bool			death;
 
-	size_t			philo_nb;
+	size_t		philo_nb;
 	size_t			ttdie;
 	size_t			tteat;
 	size_t			ttsleep;
 	size_t			meals;
+
 	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	meal_lock;
 	pthread_mutex_t	write_lock;
 
+	pthread_t		*warden;
 }					t_data;
 
 /*-------------functions-------------*/
 
+// utils :
+
 int					ft_atoi(const char *str);
+size_t				get_time(void);
 int					is_pos_int(char *str, int flag);
-bool				init_args(t_data *data, int ac, char **av);
+
+//main :
+
+bool				init(t_data *data, int ac, char **av);
 
 #endif
