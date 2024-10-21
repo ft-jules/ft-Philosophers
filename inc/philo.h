@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:27:52 by jpointil          #+#    #+#             */
-/*   Updated: 2024/10/08 15:41:03 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/21 11:37:36 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,32 @@
 
 /*-------------structures-------------*/
 
+typedef enum e_status
+{
+	INIT,
+	SLEEP,
+	EAT,
+	THINK,
+	DEAD,
+}					t_status;
+
 typedef struct s_philo
 {
-	pthread_t		*thread;
+	pthread_t		thread;
 
 	int				id;
 	bool			dead;
+	t_status		status;
 
 	size_t			ttdie;
 	size_t			tteat;
 	size_t			ttsleep;
 
-	pthread_mutex_t	r_fork;
-	pthread_mutex_t	l_fork;
+	pthread_mutex_t	*r_fork;
+	pthread_mutex_t	*l_fork;
+	pthread_mutex_t	*warden_lock;
+	pthread_mutex_t	*print_lock;
+	pthread_mutex_t	*lock;
 
 }					t_philo;
 
@@ -65,15 +78,16 @@ typedef struct s_data
 
 	bool			death;
 
-	size_t		philo_nb;
+	size_t			philo_nb;
 	size_t			ttdie;
 	size_t			tteat;
 	size_t			ttsleep;
 	size_t			meals;
 
-	pthread_mutex_t	dead_lock;
-	pthread_mutex_t	meal_lock;
-	pthread_mutex_t	write_lock;
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	warden_lock;
+	pthread_mutex_t	print_lock;
+	pthread_mutex_t	lock;
 
 	pthread_t		*warden;
 }					t_data;
@@ -85,9 +99,11 @@ typedef struct s_data
 int					ft_atoi(const char *str);
 size_t				get_time(void);
 int					is_pos_int(char *str, int flag);
+void				print_data(t_data *data);
 
-//main :
+// main :
 
 bool				init(t_data *data, int ac, char **av);
+bool				launch_routine(t_data *data);
 
 #endif

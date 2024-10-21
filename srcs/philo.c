@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 09:43:49 by jules             #+#    #+#             */
-/*   Updated: 2024/10/08 15:13:26 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/21 11:33:28 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int	main(int ac, char **av)
 		return (2);
 	if (init(&data, ac, av))
 		return (3);
-	printf(PURPLE "philo_nb: %zu\nttdie: %zu\ntteat: %zu\nttsleep: %zu\nmeals: %zu\n\n" RST, data.philo_nb, data.ttdie, data.tteat, data.ttsleep, data.meals);
+	if (launch_routine(&data))
+		return (4);
 	printf(GREEN "philo_OK\n\n" RST);
 	free(data.philo);
 	return (0);

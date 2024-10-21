@@ -6,11 +6,44 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:01:51 by jules             #+#    #+#             */
-/*   Updated: 2024/10/08 13:57:43 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/21 11:21:19 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
+
+void	print_data(t_data *data)
+{
+	int i;
+
+	i = 0;
+	printf(PURPLE "philo_nb: %zu\nttdie: %zu\ntteat: %zu\nttsleep: %zu\nmeals: %zu\n\n" RST, data->philo_nb, data->ttdie, data->tteat, data->ttsleep, data->meals);
+	printf(BROWN "forks:\n\n" RST);
+	while (i < (int)data->philo_nb)
+	{
+		printf(CYAN "fork[%d]:\n" RST, i);
+		printf("lock: %p\n\n", &data->forks[i]);
+		i++;
+	}
+	i = 1;
+	printf(BROWN "philos:\n\n" RST);
+	while (i <= (int)data->philo_nb)
+	{
+		printf(CYAN "philo[%d]:\n" RST, i);
+		printf("id: %d\n", data->philo[i].id);
+		printf("dead: %d\n", data->philo[i].dead);
+		printf("status: %d\n", data->philo[i].status);
+		printf("ttdie: %zu\n", data->philo[i].ttdie);
+		printf("tteat: %zu\n", data->philo[i].tteat);
+		printf("ttsleep: %zu\n", data->philo[i].ttsleep);
+		printf("r_fork: %p\n", data->philo[i].r_fork);
+		printf("l_fork: %p\n", data->philo[i].l_fork);
+		printf("lock: %p\n", data->philo[i].lock);
+		printf("warden_lock: %p\n", data->philo[i].warden_lock);
+		printf("print_lock: %p\n\n", data->philo[i].print_lock);
+		i++;
+	}
+}
 
 int	is_pos_int(char *str, int flag)
 {
