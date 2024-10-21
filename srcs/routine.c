@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 11:24:48 by jules             #+#    #+#             */
-/*   Updated: 2024/10/21 11:39:24 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/21 13:06:03 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,20 @@ void	*routine(void *arg) // fonction qui print les infos du philo
 	t_philo *philo;
 
 	philo = (t_philo *)arg;
+	pthread_mutex_lock(philo->lock);
 	printf(RED "philo[%d]:\n" RST, philo->id);
-    printf("dead[%d]: %d\n", philo->id, philo->dead);
-    printf("status[%d]: %d\n", philo->id, philo->status);
-    printf("ttdie[%d]: %zu\n", philo->id, philo->ttdie);
-    printf("tteat[%d]: %zu\n", philo->id, philo->tteat);
-    printf("ttsleep[%d]: %zu\n", philo->id, philo->ttsleep);
-    printf("r_fork[%d]: %p\n", philo->id, philo->r_fork);
-    printf("l_fork[%d]: %p\n", philo->id, philo->l_fork);
-    printf("lock[%d]: %p\n", philo->id, philo->lock);
-    printf("warden_lock[%d]: %p\n", philo->id, philo->warden_lock);
-    printf("print_lock[%d]: %p\n\n", philo->id, philo->print_lock);
-    return (NULL);
+	printf("dead[%d]: %d\n", philo->id, philo->dead);
+	printf("status[%d]: %d\n", philo->id, philo->status);
+	printf("ttdie[%d]: %zu\n", philo->id, philo->ttdie);
+	printf("tteat[%d]: %zu\n", philo->id, philo->tteat);
+	printf("ttsleep[%d]: %zu\n", philo->id, philo->ttsleep);
+	printf("r_fork[%d]: %p\n", philo->id, philo->r_fork);
+	printf("l_fork[%d]: %p\n", philo->id, philo->l_fork);
+	printf("lock[%d]: %p\n", philo->id, philo->lock);
+	printf("warden_lock[%d]: %p\n", philo->id, philo->warden_lock);
+	printf("print_lock[%d]: %p\n\n", philo->id, philo->print_lock);
+	pthread_mutex_unlock(philo->lock);
+	return (NULL);
 }
 
 bool	launch_routine(t_data *data)

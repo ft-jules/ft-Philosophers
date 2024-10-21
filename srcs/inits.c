@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:41:03 by jules             #+#    #+#             */
-/*   Updated: 2024/10/21 11:21:27 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/21 13:49:27 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	init_philo(t_data *data)
 	while (++i <= (int)data->philo_nb)
 	{
         data->philo[i].status = INIT;
-		data->philo[i].id = i;
+		data->philo[i].id = i + 1;
 		data->philo[i].dead = FALSE;
 		data->philo[i].ttdie = data->ttdie;
 		data->philo[i].tteat = data->tteat;
