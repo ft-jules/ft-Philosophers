@@ -6,11 +6,25 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:01:51 by jules             #+#    #+#             */
-/*   Updated: 2024/10/21 11:21:19 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/21 16:32:47 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
+
+void	free_data(t_data *data)
+{
+	int i;
+
+	i = 0;
+	while (i < (int)data->philo_nb)
+	{
+		pthread_mutex_destroy(&data->forks[i]);
+		i++;
+	}
+	free(data->forks);
+	free(data->philo);
+}
 
 void	print_data(t_data *data)
 {

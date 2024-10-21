@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 09:43:49 by jules             #+#    #+#             */
-/*   Updated: 2024/10/21 11:33:28 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/21 16:46:38 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	main(int ac, char **av)
 		return (3);
 	if (launch_routine(&data))
 		return (4);
-	printf(GREEN "philo_OK\n\n" RST);
-	free(data.philo);
+	free_data(&data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:41:03 by jules             #+#    #+#             */
-/*   Updated: 2024/10/21 13:49:27 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/21 16:46:53 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	init_philo(t_data *data)
 	int	i;
 
 	i = -1;
-	while (++i <= (int)data->philo_nb)
+	while (++i < (int)data->philo_nb)
 	{
         data->philo[i].status = INIT;
-		data->philo[i].id = i + 1;
+		data->philo[i].id = i + 1	;
 		data->philo[i].dead = FALSE;
 		data->philo[i].ttdie = data->ttdie;
 		data->philo[i].tteat = data->tteat;
@@ -34,7 +34,6 @@ void	init_philo(t_data *data)
 		data->philo[i].warden_lock = &data->warden_lock;
 		data->philo[i].print_lock = &data->print_lock;
 	}
-	printf(GREEN "init_philo\n" RST);
 }
 
 bool	init_data(t_data *data, int i)
@@ -52,7 +51,7 @@ bool	init_data(t_data *data, int i)
 	}
 	data->death = FALSE;
 	init_philo(data);
-	return (printf(GREEN "init_data\n\n" RST), false);
+	return (false);
 }
 
 bool	init(t_data *data, int ac, char **av)
@@ -65,7 +64,6 @@ bool	init(t_data *data, int ac, char **av)
 		data->meals = ft_atoi(av[5]);
 	else
 		data->meals = -1; // boucler a l'inifini
-	printf(GREEN "init_args\n" RST);
 	if (init_data(data, data->philo_nb))
 		return (printf(RED A_ERR RST), true);
 	return (false);

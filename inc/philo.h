@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:27:52 by jpointil          #+#    #+#             */
-/*   Updated: 2024/10/21 11:37:36 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/21 16:33:05 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int					ft_atoi(const char *str);
 size_t				get_time(void);
 int					is_pos_int(char *str, int flag);
 void				print_data(t_data *data);
+void				free_data(t_data *data);
 
 // main :
 
