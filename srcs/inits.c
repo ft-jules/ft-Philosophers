@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:41:03 by jules             #+#    #+#             */
-/*   Updated: 2024/10/21 16:46:53 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/22 11:12:22 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,16 @@ void	init_philo(t_data *data)
 		else
 			data->philo[i].l_fork = &data->forks[data->philo_nb - 1];
         data->philo[i].lock = &data->lock;
-		data->philo[i].warden_lock = &data->warden_lock;
+		data->philo[i].monitor_lock = &data->monitor_lock;
 		data->philo[i].print_lock = &data->print_lock;
 	}
 }
 
 bool	init_data(t_data *data, int i)
 {
+	pthread_mutex_init(&data->lock, NULL);
+	pthread_mutex_init(&data->monitor_lock, NULL);
+	pthread_mutex_init(&data->print_lock, NULL);
 	data->philo = malloc(sizeof(t_philo) * data->philo_nb);
 	if (!data->philo)
 		return (printf(RED A_ERR RST), true);

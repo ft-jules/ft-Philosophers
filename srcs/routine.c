@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 11:24:48 by jules             #+#    #+#             */
-/*   Updated: 2024/10/21 13:06:03 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/22 11:40:39 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,23 @@ void	*routine(void *arg) // fonction qui print les infos du philo
 	printf("r_fork[%d]: %p\n", philo->id, philo->r_fork);
 	printf("l_fork[%d]: %p\n", philo->id, philo->l_fork);
 	printf("lock[%d]: %p\n", philo->id, philo->lock);
-	printf("warden_lock[%d]: %p\n", philo->id, philo->warden_lock);
+	printf("monitor_lock[%d]: %p\n", philo->id, philo->monitor_lock);
 	printf("print_lock[%d]: %p\n\n", philo->id, philo->print_lock);
 	pthread_mutex_unlock(philo->lock);
 	return (NULL);
+}
+
+bool	th_join(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	if (pthread_join(data->monitor, NULL))
+		return (printf("monitor join failure"), true);
+	while (++i < (int)data->philo_nb)
+		if (pthread_join(data->philo[i].thread, NULL))
+			return (printf("Philo join failure"), true);
+	return (false);
 }
 
 bool	launch_routine(t_data *data)
@@ -45,12 +58,10 @@ bool	launch_routine(t_data *data)
 			return (printf(RED "Thread creation error\n" RST), true);
 		i++;
 	}
-	i = 0;
-	while (i < (int)data->philo_nb)
-	{
-		if (pthread_join(data->philo[i].thread, NULL))
-			return (printf(RED "Thread join error\n" RST), true);
-		i++;
-	}
+	if (pthread_create(&data->monitor, NULL, &monitoring, (void *)data))
+		return (printf(RED "Thread creation error\n" RST), true);
+	
+	if (th_join(data))
+		return (true);
 	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:01:51 by jules             #+#    #+#             */
-/*   Updated: 2024/10/21 16:32:47 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/22 10:54:13 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	print_data(t_data *data)
 		printf("r_fork: %p\n", data->philo[i].r_fork);
 		printf("l_fork: %p\n", data->philo[i].l_fork);
 		printf("lock: %p\n", data->philo[i].lock);
-		printf("warden_lock: %p\n", data->philo[i].warden_lock);
+		printf("monitor_lock: %p\n", data->philo[i].monitor_lock);
 		printf("print_lock: %p\n\n", data->philo[i].print_lock);
 		i++;
 	}

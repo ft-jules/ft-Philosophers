@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:27:52 by jpointil          #+#    #+#             */
-/*   Updated: 2024/10/21 16:33:05 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/22 11:02:29 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_philo
 
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
-	pthread_mutex_t	*warden_lock;
+	pthread_mutex_t	*monitor_lock;
 	pthread_mutex_t	*print_lock;
 	pthread_mutex_t	*lock;
 
@@ -85,11 +85,11 @@ typedef struct s_data
 	size_t			meals;
 
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	warden_lock;
+	pthread_mutex_t	monitor_lock;
 	pthread_mutex_t	print_lock;
 	pthread_mutex_t	lock;
 
-	pthread_t		*warden;
+	pthread_t		monitor;
 }					t_data;
 
 /*-------------functions-------------*/
@@ -106,5 +106,6 @@ void				free_data(t_data *data);
 
 bool				init(t_data *data, int ac, char **av);
 bool				launch_routine(t_data *data);
+void				*monitoring(void *arg);
 
 #endif
