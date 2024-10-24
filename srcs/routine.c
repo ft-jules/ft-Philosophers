@@ -6,32 +6,86 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 11:24:48 by jules             #+#    #+#             */
-/*   Updated: 2024/10/22 11:40:39 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/24 16:35:18 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void	*routine(void *arg) // fonction qui print les infos du philo
+void	sync_th(t_philo *philo)
+{
+	printf(RED "sync philo[%d]:\n" RST, philo->id);
+	return ;
+}
+
+bool	check_routine(t_philo *philo)
+{
+	if (philo->meals == 0)
+		return (true);
+	if (philo->dead)
+		return (true);
+	return (false);
+}
+
+void	eat_ac(t_philo *philo)
+{
+	pthread_mutex_lock(philo->r_fork);
+	pthread_mutex_lock(philo->l_fork);
+	philo->status = EAT;
+	philo->meals--;
+	philo->ttdie = get_time() + philo->tteat;
+	pthread_mutex_lock(philo->lock);
+	printf(GREEN "philo[%d] is eating\n" RST, philo->id);
+	pthread_mutex_unlock(philo->lock);
+	usleep(philo->tteat * 1000);
+	pthread_mutex_unlock(philo->r_fork);
+	pthread_mutex_unlock(philo->l_fork);
+}
+
+void	*routine(void *arg)
 {
 	t_philo *philo;
 
 	philo = (t_philo *)arg;
 	pthread_mutex_lock(philo->lock);
-	printf(RED "philo[%d]:\n" RST, philo->id);
-	printf("dead[%d]: %d\n", philo->id, philo->dead);
-	printf("status[%d]: %d\n", philo->id, philo->status);
-	printf("ttdie[%d]: %zu\n", philo->id, philo->ttdie);
-	printf("tteat[%d]: %zu\n", philo->id, philo->tteat);
-	printf("ttsleep[%d]: %zu\n", philo->id, philo->ttsleep);
-	printf("r_fork[%d]: %p\n", philo->id, philo->r_fork);
-	printf("l_fork[%d]: %p\n", philo->id, philo->l_fork);
-	printf("lock[%d]: %p\n", philo->id, philo->lock);
-	printf("monitor_lock[%d]: %p\n", philo->id, philo->monitor_lock);
-	printf("print_lock[%d]: %p\n\n", philo->id, philo->print_lock);
+	philo->data->created++;
 	pthread_mutex_unlock(philo->lock);
+	sync_th(philo);
+	while (check_routine(philo))
+	{
+		pthread_mutex_lock(philo->lock);
+		printf(CYAN "philo[%d] is thinking\n" RST, philo->id);
+		pthread_mutex_unlock(philo->lock);
+		philo->status = SLEEP;
+		pthread_mutex_lock(philo->lock);
+		printf(PURPLE "philo[%d] is sleeping\n" RST, philo->id);
+		pthread_mutex_unlock(philo->lock);
+		usleep(philo->ttsleep * 1000);
+		eat_ac(philo);
+	}
 	return (NULL);
 }
+
+// void	*routine(void *arg)
+// {
+// 	t_philo	*philo;
+
+// 	philo = (t_philo *)arg;
+// 	pthread_mutex_lock(philo->lock);
+// 	printf(RED "philo[%d]:\n" RST, philo->id);
+// 	printf("dead[%d]: %d\n", philo->id, philo->dead);
+// 	printf("status[%d]: %d\n", philo->id, philo->status);
+// 	printf("ttdie[%d]: %zu\n", philo->id, philo->ttdie);
+// 	printf("tteat[%d]: %zu\n", philo->id, philo->tteat);
+// 	printf("ttsleep[%d]: %zu\n", philo->id, philo->ttsleep);
+// 	printf("r_fork[%d]: %p\n", philo->id, philo->r_fork);
+// 	printf("l_fork[%d]: %p\n", philo->id, philo->l_fork);
+// 	printf("lock[%d]: %p\n", philo->id, philo->lock);
+// 	printf("monitor_lock[%d]: %p\n", philo->id, philo->monitor_lock);
+// 	printf("print_lock[%d]: %p\n\n", philo->id, philo->print_lock);
+// 	pthread_mutex_unlock(philo->lock);
+// 	return (NULL);
+// }
 
 bool	th_join(t_data *data)
 {
@@ -60,7 +114,7 @@ bool	launch_routine(t_data *data)
 	}
 	if (pthread_create(&data->monitor, NULL, &monitoring, (void *)data))
 		return (printf(RED "Thread creation error\n" RST), true);
-	
+
 	if (th_join(data))
 		return (true);
 	return (false);

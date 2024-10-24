@@ -6,7 +6,7 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:27:52 by jpointil          #+#    #+#             */
-/*   Updated: 2024/10/22 11:02:29 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/24 16:31:28 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 
 typedef enum e_status
 {
-	INIT,
+	INACTIVE,
 	SLEEP,
 	EAT,
 	THINK,
@@ -56,6 +56,8 @@ typedef struct s_philo
 {
 	pthread_t		thread;
 
+	struct s_data	*data;
+
 	int				id;
 	bool			dead;
 	t_status		status;
@@ -63,6 +65,9 @@ typedef struct s_philo
 	size_t			ttdie;
 	size_t			tteat;
 	size_t			ttsleep;
+
+	size_t			philo_nb;
+	size_t			meals;
 
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
@@ -77,6 +82,8 @@ typedef struct s_data
 	t_philo			*philo;
 
 	bool			death;
+
+	int 			created;
 
 	size_t			philo_nb;
 	size_t			ttdie;
