@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inits.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jpointil <jpointil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:41:03 by jules             #+#    #+#             */
-/*   Updated: 2024/10/24 16:29:22 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/28 11:00:55 by jpointil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	init_philo(t_data *data)
         data->philo[i].status = INACTIVE;
 		data->philo[i].id = i + 1	;
 		data->philo[i].dead = FALSE;
+		data->philo[i].last_meal = get_time();
 		data->philo[i].ttdie = data->ttdie;
 		data->philo[i].tteat = data->tteat;
 		data->philo[i].ttsleep = data->ttsleep;

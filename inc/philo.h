@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jpointil <jpointil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:27:52 by jpointil          #+#    #+#             */
-/*   Updated: 2024/10/24 16:31:28 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/28 11:00:48 by jpointil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_philo
 	int				id;
 	bool			dead;
 	t_status		status;
+	size_t			last_meal;
 
 	size_t			ttdie;
 	size_t			tteat;
@@ -83,7 +84,7 @@ typedef struct s_data
 
 	bool			death;
 
-	int 			created;
+	int				created;
 
 	size_t			philo_nb;
 	size_t			ttdie;

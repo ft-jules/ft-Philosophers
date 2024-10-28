@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jpointil <jpointil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 11:24:48 by jules             #+#    #+#             */
-/*   Updated: 2024/10/24 16:35:18 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/28 11:04:07 by jpointil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,33 @@
 
 void	sync_th(t_philo *philo)
 {
-	printf(RED "sync philo[%d]:\n" RST, philo->id);
+	while (true)
+	{
+		pthread_mutex_lock(philo->lock);
+		if (philo->data->created == (int)philo->philo_nb + 1)
+		{
+			philo->last_meal = get_time();
+			pthread_mutex_unlock(philo->lock);
+			break ;
+		}
+		pthread_mutex_unlock(philo->lock);
+		usleep(100);
+	}
 	return ;
 }
 
-bool	check_routine(t_philo *philo)
+int	check_routine(t_philo *philo)
 {
 	if (philo->meals == 0)
-		return (true);
+		return (1);
 	if (philo->dead)
-		return (true);
-	return (false);
+	{
+		pthread_mutex_lock(philo->lock);
+		printf("philo[%d], died\n", philo->id);
+		pthread_mutex_unlock(philo->lock);
+		return (2);
+	}
+	return (0);
 }
 
 void	eat_ac(t_philo *philo)
@@ -33,7 +49,7 @@ void	eat_ac(t_philo *philo)
 	pthread_mutex_lock(philo->l_fork);
 	philo->status = EAT;
 	philo->meals--;
-	philo->ttdie = get_time() + philo->tteat;
+	philo->last_meal = get_time();
 	pthread_mutex_lock(philo->lock);
 	printf(GREEN "philo[%d] is eating\n" RST, philo->id);
 	pthread_mutex_unlock(philo->lock);
@@ -51,7 +67,7 @@ void	*routine(void *arg)
 	philo->data->created++;
 	pthread_mutex_unlock(philo->lock);
 	sync_th(philo);
-	while (check_routine(philo))
+	while (!check_routine(philo))
 	{
 		pthread_mutex_lock(philo->lock);
 		printf(CYAN "philo[%d] is thinking\n" RST, philo->id);
