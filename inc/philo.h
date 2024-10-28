@@ -6,7 +6,7 @@
 /*   By: jpointil <jpointil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:27:52 by jpointil          #+#    #+#             */
-/*   Updated: 2024/10/28 11:00:48 by jpointil         ###   ########.fr       */
+/*   Updated: 2024/10/28 13:13:19 by jpointil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void				free_data(t_data *data);
 // main :
 
 bool				init(t_data *data, int ac, char **av);
-bool				launch_routine(t_data *data);
+bool				wakeup_philos(t_data *data);
 void				*monitoring(void *arg);
 
 #endif

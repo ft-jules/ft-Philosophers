@@ -6,7 +6,7 @@
 /*   By: jpointil <jpointil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 11:24:48 by jules             #+#    #+#             */
-/*   Updated: 2024/10/28 11:04:07 by jpointil         ###   ########.fr       */
+/*   Updated: 2024/10/28 13:25:58 by jpointil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,27 +82,6 @@ void	*routine(void *arg)
 	return (NULL);
 }
 
-// void	*routine(void *arg)
-// {
-// 	t_philo	*philo;
-
-// 	philo = (t_philo *)arg;
-// 	pthread_mutex_lock(philo->lock);
-// 	printf(RED "philo[%d]:\n" RST, philo->id);
-// 	printf("dead[%d]: %d\n", philo->id, philo->dead);
-// 	printf("status[%d]: %d\n", philo->id, philo->status);
-// 	printf("ttdie[%d]: %zu\n", philo->id, philo->ttdie);
-// 	printf("tteat[%d]: %zu\n", philo->id, philo->tteat);
-// 	printf("ttsleep[%d]: %zu\n", philo->id, philo->ttsleep);
-// 	printf("r_fork[%d]: %p\n", philo->id, philo->r_fork);
-// 	printf("l_fork[%d]: %p\n", philo->id, philo->l_fork);
-// 	printf("lock[%d]: %p\n", philo->id, philo->lock);
-// 	printf("monitor_lock[%d]: %p\n", philo->id, philo->monitor_lock);
-// 	printf("print_lock[%d]: %p\n\n", philo->id, philo->print_lock);
-// 	pthread_mutex_unlock(philo->lock);
-// 	return (NULL);
-// }
-
 bool	th_join(t_data *data)
 {
 	int	i;
@@ -116,11 +95,18 @@ bool	th_join(t_data *data)
 	return (false);
 }
 
-bool	launch_routine(t_data *data)
+bool	wakeup_philos(t_data *data)
 {
 	int i;
 
 	i = 0;
+	if (data->philo_nb == 1)
+	{
+		//print_action(TAKING, data->philo[0]);
+		printf("philo[%d] is taking a fork\n", data->philo->id);
+		usleep(data->ttdie * 1000);
+		return (false);
+	}
 	while (i < (int)data->philo_nb)
 	{
 		if (pthread_create(&data->philo[i].thread, NULL, &routine,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jpointil <jpointil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 09:43:49 by jules             #+#    #+#             */
-/*   Updated: 2024/10/21 16:46:38 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/28 13:13:33 by jpointil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int ac, char **av)
 		return (2);
 	if (init(&data, ac, av))
 		return (3);
-	if (launch_routine(&data))
+	if (wakeup_philos(&data))
 		return (4);
 	free_data(&data);
 	return (0);
