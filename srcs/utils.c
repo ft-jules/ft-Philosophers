@@ -6,68 +6,53 @@
 /*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 16:01:51 by jules             #+#    #+#             */
-/*   Updated: 2024/10/24 15:46:47 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/29 19:35:32 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void	free_philo(t_philo *philo)
+void	t_print(char *str, t_philo *philo)
 {
-	pthread_mutex_destroy(philo->lock);
-	pthread_mutex_destroy(philo->monitor_lock);
-	pthread_mutex_destroy(philo->print_lock);
-	pthread_mutex_destroy(philo->r_fork);
-	pthread_mutex_destroy(philo->l_fork);
-	return ;
+	size_t	time;
+
+	pthread_mutex_lock(philo->print_lock);
+	time = get_time() - philo->creation_time;
+	if (!check_routine(philo->data))
+		printf("%zu %d %s\n", time, philo->id, str);
+	pthread_mutex_unlock(philo->print_lock);
 }
 
 void	free_data(t_data *data)
 {
-	int i;
+	int	i;
 
-	i = 0;
-	while (i < (int)data->philo_nb)
-	{
+	i = -1;
+	pthread_mutex_destroy(&data->monitor_lock);
+	pthread_mutex_destroy(&data->lock);
+	pthread_mutex_destroy(&data->print_lock);
+	while (++i < (int)data->philo_nb)
 		pthread_mutex_destroy(&data->forks[i]);
-		free_philo(&data->philo[i]);
-		i++;
-	}
-	free(data->forks);
+	if (data->philo)
+		free(data->philo);
+	if (data->forks)
+		free(data->forks);
 }
 
-void	print_data(t_data *data)
-{
-	int i;
+// void	free_data(t_data *data)
+// {
+// 	int	i;
 
-	i = 0;
-	printf(PURPLE "philo_nb: %zu\nttdie: %zu\ntteat: %zu\nttsleep: %zu\nmeals: %zu\n\n" RST, data->philo_nb, data->ttdie, data->tteat, data->ttsleep, data->meals);
-	printf(BROWN "forks:\n\n" RST);
-	while (i < (int)data->philo_nb)
-	{
-		printf(CYAN "fork[%d]:\n" RST, i);
-		printf("lock: %p\n\n", &data->forks[i]);
-		i++;
-	}
-	i = 1;
-	printf(BROWN "philos:\n\n" RST);
-	while (i <= (int)data->philo_nb)
-	{
-		printf(CYAN "philo[%d]:\n" RST, i);
-		printf("id: %d\n", data->philo[i].id);
-		printf("dead: %d\n", data->philo[i].dead);
-		printf("status: %d\n", data->philo[i].status);
-		printf("ttdie: %zu\n", data->philo[i].ttdie);
-		printf("tteat: %zu\n", data->philo[i].tteat);
-		printf("ttsleep: %zu\n", data->philo[i].ttsleep);
-		printf("r_fork: %p\n", data->philo[i].r_fork);
-		printf("l_fork: %p\n", data->philo[i].l_fork);
-		printf("lock: %p\n", data->philo[i].lock);
-		printf("monitor_lock: %p\n", data->philo[i].monitor_lock);
-		printf("print_lock: %p\n\n", data->philo[i].print_lock);
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (i < (int)data->philo_nb)
+// 	{
+// 		pthread_mutex_destroy(&data->forks[i]);
+// 		free_philo(&data->philo[i]);
+// 		free(&data->forks[i]);
+// 		i++;
+// 	}
+// 	free(data->forks);
+// }
 
 int	is_pos_int(char *str, int flag)
 {

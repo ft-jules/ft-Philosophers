@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpointil <jpointil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:27:52 by jpointil          #+#    #+#             */
-/*   Updated: 2024/10/28 13:13:19 by jpointil         ###   ########.fr       */
+/*   Updated: 2024/10/29 17:28:32 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@
 # define BROWN "\033[0;33m"
 # define PURPLE "\033[0;35m"
 # define BOLD_PURPLE "\033[1;35m"
+# define YELLOW "\033[1;33m"
+# define BLUE "\033[0;34m"
+# define WHITE "\033[0;37m"
 
 /*---------------macros--------------*/
 
@@ -43,15 +46,6 @@
 
 /*-------------structures-------------*/
 
-typedef enum e_status
-{
-	INACTIVE,
-	SLEEP,
-	EAT,
-	THINK,
-	DEAD,
-}					t_status;
-
 typedef struct s_philo
 {
 	pthread_t		thread;
@@ -60,8 +54,9 @@ typedef struct s_philo
 
 	int				id;
 	bool			dead;
-	t_status		status;
+	bool			eating;
 	size_t			last_meal;
+	size_t			creation_time;
 
 	size_t			ttdie;
 	size_t			tteat;
@@ -109,11 +104,14 @@ size_t				get_time(void);
 int					is_pos_int(char *str, int flag);
 void				print_data(t_data *data);
 void				free_data(t_data *data);
+void				t_print(char *str, t_philo *philo);
 
 // main :
 
 bool				init(t_data *data, int ac, char **av);
 bool				wakeup_philos(t_data *data);
+//int					check_routine(t_philo *philo);
+bool				check_routine(t_data *data);
 void				*monitoring(void *arg);
 
 #endif

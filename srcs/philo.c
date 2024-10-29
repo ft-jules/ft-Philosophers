@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpointil <jpointil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 09:43:49 by jules             #+#    #+#             */
-/*   Updated: 2024/10/28 13:13:33 by jpointil         ###   ########.fr       */
+/*   Updated: 2024/10/29 19:36:10 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-bool	check_args(char **av, int ac)
+static bool	check_args(char **av, int ac)
 {
 	int	i;
 
@@ -32,7 +32,8 @@ int	main(int ac, char **av)
 	if ((ac < 5 || ac > 6))
 	{
 		printf(RED "Error: wrong number of arguments\n" RST);
-		printf(RED "Usage: ./philo [philo nb] [die time] [eat time] [sleep time] [meals nb for each]\n" RST);
+		printf(RED "Usage: ./philo [philo nb] [die time] \
+			[eat time] [sleep time] [meals nb for each]\n" RST);
 		return (1);
 	}
 	if (check_args(av, ac))
