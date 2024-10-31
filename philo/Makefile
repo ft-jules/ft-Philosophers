@@ -5,6 +5,7 @@ CC          =   cc
 LIBS        =   /inc
 
 FLAG        =   -g3 -Wall -Wextra -Werror -pthread
+#-fsanitize=thread
 
 C_FILES     =   srcs/philo.c srcs/utils.c srcs/inits.c srcs/routine.c \
 					srcs/monitor.c
@@ -25,7 +26,8 @@ $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
 
 $(NAME):    $(OBJS)
 	@printf "\r\033[K[philosophers] \033[0;32mBuilding : $<\033[0m"
-	@$(CC) $(OBJS) $(LDFLAGS) -o $(NAME)
+	@$(CC) $(OBJS) $(LDFLAGS) -o $(NAME) -lpthread 
+#-fsanitize=thread
 	@printf "\r\033[K[philosophers] \033[0;32mDone!\033[0m\n"
 
 clean:

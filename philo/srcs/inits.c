@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inits.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jpointil <jpointil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:41:03 by jules             #+#    #+#             */
-/*   Updated: 2024/10/29 19:36:46 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/31 11:31:44 by jpointil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ bool	init_data(t_data *data, int i)
 		pthread_mutex_init(&data->forks[i], NULL);
 	}
 	data->death = FALSE;
+	data->created = 0;
 	init_philo(data);
 	return (false);
 }

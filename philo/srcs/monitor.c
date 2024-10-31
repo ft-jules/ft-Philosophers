@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jpointil <jpointil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:54:36 by jules             #+#    #+#             */
-/*   Updated: 2024/10/29 19:37:33 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/31 14:21:15 by jpointil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ static bool	check_death(t_data *data)
 		{
 			t_print(RED "died" RST, &data->philo[i]);
 			data->philo[i].dead = true;
+			pthread_mutex_lock(&data->monitor_lock);
 			data->death = true;
+			pthread_mutex_unlock(&data->monitor_lock);
 			pthread_mutex_unlock(&data->lock);
 			return (data->death);
 		}

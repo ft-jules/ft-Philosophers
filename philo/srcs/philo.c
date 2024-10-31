@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jpointil <jpointil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 09:43:49 by jules             #+#    #+#             */
-/*   Updated: 2024/10/29 19:36:10 by jules            ###   ########.fr       */
+/*   Updated: 2024/10/31 11:33:03 by jpointil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	main(int ac, char **av)
 	if ((ac < 5 || ac > 6))
 	{
 		printf(RED "Error: wrong number of arguments\n" RST);
-		printf(RED "Usage: ./philo [philo nb] [die time] \
-			[eat time] [sleep time] [meals nb for each]\n" RST);
+		printf(RED "Usage: ./philo [philo nb] [die time]" RST);
+		printf(RED "[eat time] [sleep time] [meals nb for each]\n" RST);
 		return (1);
 	}
 	if (check_args(av, ac))
